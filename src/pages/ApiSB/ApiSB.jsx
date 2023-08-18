@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-
 import { v4 as uuid } from "uuid";
+
+import { AnimatePresence, motion } from "framer-motion";
 
 const ApiSB = () => {
 	const [charData, setCharData] = useState([]);
@@ -9,11 +10,14 @@ const ApiSB = () => {
 	const [isDeletingLoading, setIsDeletingLoading] = useState(false);
 	const [error, setError] = useState("");
 
+	const [showNotif, setShowNotif] = useState(false);
+
 	const initial_char_form = {
 		id: uuid(),
 		name: "",
 		faction: "",
 		altMode: "",
+		isDeleting: "",
 	};
 
 	const [newCharForm, setNewCharForm] = useState(initial_char_form);
@@ -21,6 +25,12 @@ const ApiSB = () => {
 	useEffect(() => {
 		fetchChar();
 	}, []);
+
+	useEffect(() => {
+		if (showNotif) {
+			setTimeout(() => setShowNotif(false), 3000);
+		}
+	}, [error]);
 
 	const handleChange = (e) => {
 		const { name, value, type, checked } = e.target;
@@ -35,12 +45,12 @@ const ApiSB = () => {
 	const fetchChar = () => {
 		setCharData([]);
 		setError("");
-
 		setIsLoading(true);
 		fetch("http://localhost:8000/characters")
 			.then((res) => {
 				if (!res.ok) {
-					setError(`${res.status} || ${res.statusText}`);
+					setShowNotif(true);
+					setError(`${res.status} : ${res.statusText}`);
 				}
 				return res.json();
 			})
@@ -58,7 +68,11 @@ const ApiSB = () => {
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(newCharForm),
 		})
-			.then(() => {
+			.then((res) => {
+				if (!res.ok) {
+					setShowNotif(true);
+					setError(`${res.status} : ${res.statusText}`);
+				}
 				setCharData((prev) => [...prev, newCharForm]);
 				setNewCharForm(initial_char_form);
 			})
@@ -68,20 +82,32 @@ const ApiSB = () => {
 	};
 
 	const deleteChar = (id) => {
-		setIsDeletingLoading(true);
-		fetch(`http://localhost:8000/characters/${id}`, { method: "DELETE" })
-			.then(() => {
-				setCharData((prev) => prev.filter((char) => char.id !== id));
-			})
-			.finally(() => {
-				setIsDeletingLoading(false);
-			});
+		setCharData((prev) =>
+			prev.map((char) =>
+				char.id === id ? { ...char, isDeleting: true } : char
+			)
+		);
+		fetch(`http://localhost:8000/characters/${id}`, {
+			method: "DELETE",
+		}).then((res) => {
+			if (!res.ok) {
+				setShowNotif(true);
+				setError(`${res.status} : ${res.statusText}`);
+			}
+			setCharData((prev) => prev.filter((char) => char.id !== id));
+		});
 	};
+
+	const notifModal = (
+		<div className="fixed p-4 text-gray-400 bg-white border rounded-xl top-2 right-2">
+			Error! {error}
+		</div>
+	);
 
 	const charCardElement =
 		charData.length > 0 &&
 		charData.map((char) => {
-			const { id, name, faction, altMode } = char;
+			const { id, name, faction, altMode, isDeleting } = char;
 			return (
 				<li key={id} className="relative w-full p-4 bg-white rounded-xl">
 					<h2 className="pb-2 mb-2 border-b">{name}</h2>
@@ -94,7 +120,7 @@ const ApiSB = () => {
 						}}
 						className="absolute w-20 px-3 py-2 text-xs text-center text-white bg-red-400 top-2 right-2 rounded-xl"
 					>
-						{isDeletingLoading ? "deleting..." : "delete"}
+						{isDeleting ? "deleting..." : "delete"}
 					</button>
 				</li>
 			);
@@ -121,11 +147,10 @@ const ApiSB = () => {
 					) : charData.length > 0 ? (
 						charCardElement
 					) : (
-						<p className="flex items-center justify-center w-full h-full">
-							empty
+						<p className="flex items-center justify-center w-full h-full text-gray-400">
+							no character listed yet
 						</p>
 					)}
-					{error && <p>{error}</p>}
 				</ul>
 			</section>
 
@@ -188,6 +213,7 @@ const ApiSB = () => {
 					</button>
 				</form>
 			</section>
+			{error && showNotif && notifModal}
 		</div>
 	);
 };
