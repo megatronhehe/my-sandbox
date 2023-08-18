@@ -5,6 +5,8 @@ import { v4 as uuid } from "uuid";
 const ApiSB = () => {
 	const [charData, setCharData] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
+	const [isAddingLoading, setIsAddingLoading] = useState(false);
+	const [isDeletingLoading, setIsDeletingLoading] = useState(false);
 	const [error, setError] = useState("");
 
 	const initial_char_form = {
@@ -31,7 +33,9 @@ const ApiSB = () => {
 	};
 
 	const fetchChar = () => {
+		setCharData([]);
 		setError("");
+
 		setIsLoading(true);
 		fetch("http://localhost:8000/characters")
 			.then((res) => {
@@ -41,10 +45,6 @@ const ApiSB = () => {
 				return res.json();
 			})
 			.then((data) => setCharData(data))
-			.catch((err) => {
-				console.log(err);
-				setError(err);
-			})
 			.finally(() => {
 				setIsLoading(false);
 			});
@@ -52,14 +52,30 @@ const ApiSB = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		setIsAddingLoading(true);
 		fetch("http://localhost:8000/characters", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(newCharForm),
-		}).then(() => {
-			console.log("new character added");
-			setNewCharForm(initial_char_form);
-		});
+		})
+			.then(() => {
+				setCharData((prev) => [...prev, newCharForm]);
+				setNewCharForm(initial_char_form);
+			})
+			.finally(() => {
+				setIsAddingLoading(false);
+			});
+	};
+
+	const deleteChar = (id) => {
+		setIsDeletingLoading(true);
+		fetch(`http://localhost:8000/characters/${id}`, { method: "DELETE" })
+			.then(() => {
+				setCharData((prev) => prev.filter((char) => char.id !== id));
+			})
+			.finally(() => {
+				setIsDeletingLoading(false);
+			});
 	};
 
 	const charCardElement =
@@ -67,11 +83,19 @@ const ApiSB = () => {
 		charData.map((char) => {
 			const { id, name, faction, altMode } = char;
 			return (
-				<li key={id} className="p-4 bg-white rounded-xl">
+				<li key={id} className="relative w-full p-4 bg-white rounded-xl">
 					<h2 className="pb-2 mb-2 border-b">{name}</h2>
 					<p className="text-xs">
 						{name} is a member of {faction}. {name} can turn into a {altMode}
 					</p>
+					<button
+						onClick={() => {
+							deleteChar(id);
+						}}
+						className="absolute w-20 px-3 py-2 text-xs text-center text-white bg-red-400 top-2 right-2 rounded-xl"
+					>
+						{isDeletingLoading ? "deleting..." : "delete"}
+					</button>
 				</li>
 			);
 		});
@@ -89,9 +113,18 @@ const ApiSB = () => {
 					{isLoading ? "fetching..." : "fetch"}
 				</button>
 
-				<ul className="flex flex-col gap-2">
-					{charData && charCardElement}
-					{isLoading && <p>loading ...</p>}
+				<ul className="flex flex-col gap-2 overflow-auto h-80">
+					{isLoading ? (
+						<p className="flex items-center justify-center w-full h-full">
+							loading ...
+						</p>
+					) : charData.length > 0 ? (
+						charCardElement
+					) : (
+						<p className="flex items-center justify-center w-full h-full">
+							empty
+						</p>
+					)}
 					{error && <p>{error}</p>}
 				</ul>
 			</section>
@@ -151,7 +184,7 @@ const ApiSB = () => {
 						onClick={handleSubmit}
 						className="w-full p-2 text-white bg-blue-400 rounded-full"
 					>
-						+ add
+						{isAddingLoading ? "adding..." : "+ add"}
 					</button>
 				</form>
 			</section>

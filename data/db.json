@@ -1,34 +1,3 @@
 {
-  "characters": [
-    {
-      "id": 1,
-      "name": "Onslaught",
-      "faction": "Decepticon",
-      "altMode": "Truck"
-    },
-    {
-      "id": 2,
-      "name": "Swindle",
-      "faction": "Decepticon",
-      "altMode": "Car"
-    },
-    {
-      "id": 3,
-      "name": "Brawl",
-      "faction": "Decepticon",
-      "altMode": "Tank"
-    },
-    {
-      "id": "3cfab98a-876c-4680-be88-22acc3f4328a",
-      "name": "Vortex",
-      "faction": "Decepticon",
-      "altMode": "Helicopter"
-    },
-    {
-      "id": "c9f38452-7373-439d-b066-a6d3eef14962",
-      "name": "Blastoff",
-      "faction": "Decepticon",
-      "altMode": "Space Shuttle"
-    }
-  ]
+  "characters": []
 }
