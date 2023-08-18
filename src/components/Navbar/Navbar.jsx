@@ -50,7 +50,7 @@ const Navbar = () => {
 						animate={{ x: 0 }}
 						exit={{ x: -120 }}
 						transition={{ type: "tween" }}
-						className="fixed top-0 flex flex-col h-full gap-8 py-12 overflow-hidden text-gray-300 bg-gray-800 w-28 left-24 font-extralight"
+						className="fixed top-0 z-10 flex flex-col h-full gap-8 py-12 overflow-hidden text-gray-300 bg-gray-800 w-28 left-24 font-extralight"
 					>
 						<button className="flex w-full py-2 text-base">Sandbox</button>
 
