@@ -86,8 +86,6 @@ const ApiSB = () => {
 			});
 	};
 
-	console.log(charData);
-
 	const charCardElement =
 		isCharDataExist &&
 		charData.map((char) => (

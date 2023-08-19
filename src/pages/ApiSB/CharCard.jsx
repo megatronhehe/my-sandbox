@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import {
 	RiDeleteBin2Fill,
@@ -6,6 +6,7 @@ import {
 	RiEditBoxLine,
 	RiCheckFill,
 	RiCloseLine,
+	RiMore2Fill,
 } from "react-icons/ri";
 
 const CharCard = ({ char, setCharData }) => {
@@ -13,6 +14,15 @@ const CharCard = ({ char, setCharData }) => {
 
 	const [enableEdit, setEnableEdit] = useState(false);
 	const [toggleDelete, setToggleDelete] = useState(false);
+	const [toggleMore, setToggleMore] = useState(false);
+
+	const ref = useRef(null);
+
+	useEffect(() => {
+		if (enableEdit) {
+			ref.current.focus(); // Focus the "name" input when enableEdit is true
+		}
+	}, [enableEdit]);
 
 	const deleteChar = (id) => {
 		setCharData((prev) =>
@@ -50,7 +60,7 @@ const CharCard = ({ char, setCharData }) => {
 		fetch(`http://localhost:8000/characters/${id}`, {
 			method: "PUT",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ ...char, name, altMode }), //
+			body: JSON.stringify({ ...char, name, faction, altMode }),
 		}).finally(() => {
 			setCharData((prev) =>
 				prev.map((char) =>
@@ -62,48 +72,49 @@ const CharCard = ({ char, setCharData }) => {
 	};
 
 	return (
-		<li className="relative w-full p-4 bg-white rounded-xl">
-			<form className="flex flex-col gap-2">
+		<li className="relative flex w-full p-4 bg-white rounded-xl">
+			<form className="flex flex-col w-4/5 gap-2">
 				<input
 					type="text"
+					ref={ref}
 					disabled={!enableEdit}
 					name="name"
 					value={name || ""}
 					onChange={editChar}
+					className="w-full p-2 text-center bg-gray-100 border-b rounded-lg outline-none disabled:bg-white"
 				/>
-				<input
-					type="text"
-					disabled={!enableEdit}
-					name="altMode"
-					value={altMode || ""}
-					onChange={editChar}
-				/>
-			</form>
-			<div className="absolute flex gap-2 top-2 right-2">
-				<div className="flex flex-col gap-2">
-					<button
-						onClick={() => setToggleDelete((prev) => !prev)}
-						className="flex items-center justify-center w-8 h-8 text-white bg-red-300 rounded-full"
-					>
-						{toggleDelete ? <RiCloseLine /> : <RiDeleteBin2Fill />}
-					</button>
-					{toggleDelete && (
-						<button
-							onClick={() => deleteChar(id)}
-							className="flex items-center justify-center w-8 h-8 text-white bg-red-300 rounded-full"
-						>
-							{isDeleting ? (
-								<RiCheckboxBlankCircleLine />
-							) : (
-								<RiDeleteBin2Fill />
-							)}
-						</button>
-					)}
+				<div className="flex w-full gap-2">
+					<input
+						type="text"
+						disabled={!enableEdit}
+						name="altMode"
+						value={altMode || ""}
+						onChange={editChar}
+						className="w-1/2 p-2 text-center bg-gray-100 rounded-lg outline-none disabled:bg-white"
+					/>
+					<input
+						type="text"
+						disabled={!enableEdit}
+						name="faction"
+						value={faction || ""}
+						onChange={editChar}
+						className="w-1/2 p-2 text-center bg-gray-100 rounded-lg outline-none disabled:bg-white"
+					/>
 				</div>
-				<div className="flex flex-col gap-2">
+				<button
+					onClick={(e) => {
+						e.preventDefault();
+						submitEdit(id);
+					}}
+					className="absolute invisible"
+				></button>
+			</form>
+
+			<div className="flex flex-col w-1/5 gap-2">
+				<div className="flex flex-row-reverse gap-2">
 					<button
 						onClick={() => setEnableEdit((prev) => !prev)}
-						className="flex items-center justify-center w-8 h-8 text-lg text-white bg-gray-300 rounded-full"
+						className="flex items-center justify-center w-8 h-8 text-lg text-white bg-gray-300 rounded-md"
 					>
 						{enableEdit ? <RiCloseLine /> : <RiEditBoxLine />}
 					</button>
@@ -113,6 +124,22 @@ const CharCard = ({ char, setCharData }) => {
 							className="flex items-center justify-center w-8 h-8 text-lg text-white bg-gray-300 rounded-full"
 						>
 							{isEditing ? <RiCheckboxBlankCircleLine /> : <RiCheckFill />}
+						</button>
+					)}
+				</div>
+				<div className="flex flex-row-reverse gap-2">
+					<button
+						onClick={() => setToggleDelete((prev) => !prev)}
+						className="flex items-center justify-center w-8 h-8 text-white bg-red-300 rounded-md"
+					>
+						{toggleDelete ? <RiCloseLine /> : <RiDeleteBin2Fill />}
+					</button>
+					{toggleDelete && (
+						<button
+							onClick={() => deleteChar(id)}
+							className="flex items-center justify-center w-8 h-8 text-white bg-red-300 rounded-full"
+						>
+							{isDeleting ? <RiCheckboxBlankCircleLine /> : <RiCheckFill />}
 						</button>
 					)}
 				</div>
