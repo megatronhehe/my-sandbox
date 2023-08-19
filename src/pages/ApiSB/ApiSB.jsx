@@ -1,23 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 
+import CharCard from "./charCard";
+import NotifModal from "./NotifModal";
+
 import { AnimatePresence, motion } from "framer-motion";
 
 const ApiSB = () => {
 	const [charData, setCharData] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isAddingLoading, setIsAddingLoading] = useState(false);
-	const [isDeletingLoading, setIsDeletingLoading] = useState(false);
-	const [error, setError] = useState("");
 
+	const [error, setError] = useState("");
 	const [showNotif, setShowNotif] = useState(false);
+
+	const isCharDataExist = charData.length > 0;
 
 	const initial_char_form = {
 		id: uuid(),
 		name: "",
 		faction: "",
 		altMode: "",
-		isDeleting: "",
+		isDeleting: false,
+		isEditing: false,
 	};
 
 	const [newCharForm, setNewCharForm] = useState(initial_char_form);
@@ -81,50 +86,13 @@ const ApiSB = () => {
 			});
 	};
 
-	const deleteChar = (id) => {
-		setCharData((prev) =>
-			prev.map((char) =>
-				char.id === id ? { ...char, isDeleting: true } : char
-			)
-		);
-		fetch(`http://localhost:8000/characters/${id}`, {
-			method: "DELETE",
-		}).then((res) => {
-			if (!res.ok) {
-				setShowNotif(true);
-				setError(`${res.status} : ${res.statusText}`);
-			}
-			setCharData((prev) => prev.filter((char) => char.id !== id));
-		});
-	};
-
-	const notifModal = (
-		<div className="fixed p-4 text-gray-400 bg-white border rounded-xl top-2 right-2">
-			Error! {error}
-		</div>
-	);
+	console.log(charData);
 
 	const charCardElement =
-		charData.length > 0 &&
-		charData.map((char) => {
-			const { id, name, faction, altMode, isDeleting } = char;
-			return (
-				<li key={id} className="relative w-full p-4 bg-white rounded-xl">
-					<h2 className="pb-2 mb-2 border-b">{name}</h2>
-					<p className="text-xs">
-						{name} is a member of {faction}. {name} can turn into a {altMode}
-					</p>
-					<button
-						onClick={() => {
-							deleteChar(id);
-						}}
-						className="absolute w-20 px-3 py-2 text-xs text-center text-white bg-red-400 top-2 right-2 rounded-xl"
-					>
-						{isDeleting ? "deleting..." : "delete"}
-					</button>
-				</li>
-			);
-		});
+		isCharDataExist &&
+		charData.map((char) => (
+			<CharCard key={char.id} char={char} setCharData={setCharData} />
+		));
 
 	return (
 		<div className="flex flex-col gap-8">
@@ -206,6 +174,7 @@ const ApiSB = () => {
 						<label htmlFor="decepticon">Decepticon</label>
 					</div>
 					<button
+						disabled={isAddingLoading}
 						onClick={handleSubmit}
 						className="w-full p-2 text-white bg-blue-400 rounded-full"
 					>
@@ -213,7 +182,7 @@ const ApiSB = () => {
 					</button>
 				</form>
 			</section>
-			{error && showNotif && notifModal}
+			{error && showNotif && <NotifModal error={error} />}
 		</div>
 	);
 };
