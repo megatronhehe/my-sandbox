@@ -6,21 +6,19 @@ import {
 	RiEditBoxLine,
 	RiCheckFill,
 	RiCloseLine,
-	RiMore2Fill,
 } from "react-icons/ri";
 
-const CharCard = ({ char, setCharData }) => {
+const CharCard = ({ char, setCharData, setError, setShowNotif }) => {
 	const { id, name, faction, altMode, isDeleting, isEditing } = char;
 
 	const [enableEdit, setEnableEdit] = useState(false);
 	const [toggleDelete, setToggleDelete] = useState(false);
-	const [toggleMore, setToggleMore] = useState(false);
 
 	const ref = useRef(null);
 
 	useEffect(() => {
 		if (enableEdit) {
-			ref.current.focus(); // Focus the "name" input when enableEdit is true
+			ref.current.focus();
 		}
 	}, [enableEdit]);
 
@@ -35,11 +33,18 @@ const CharCard = ({ char, setCharData }) => {
 		})
 			.then((res) => {
 				if (!res.ok) {
-					console.log("error");
+					setError(`${res.status}:${res.statusText}`);
+					setShowNotif(true);
+				} else {
+					setCharData((prev) => prev.filter((char) => char.id !== id));
 				}
-				setCharData((prev) => prev.filter((char) => char.id !== id));
 			})
 			.finally(() => {
+				setCharData((prev) =>
+					prev.map((char) =>
+						char.id === id ? { ...char, isDeleting: false } : char
+					)
+				);
 				setToggleDelete(false);
 			});
 	};
@@ -61,14 +66,21 @@ const CharCard = ({ char, setCharData }) => {
 			method: "PUT",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ ...char, name, faction, altMode }),
-		}).finally(() => {
-			setCharData((prev) =>
-				prev.map((char) =>
-					char.id === id ? { ...char, isEditing: false } : char
-				)
-			);
-			setEnableEdit(false);
-		});
+		})
+			.then((res) => {
+				if (!res.ok) {
+					setError(`${res.status}:${res.statusText}`);
+					setShowNotif(true);
+				}
+			})
+			.finally(() => {
+				setCharData((prev) =>
+					prev.map((char) =>
+						char.id === id ? { ...char, isEditing: false } : char
+					)
+				);
+				setEnableEdit(false);
+			});
 	};
 
 	return (

@@ -11,7 +11,7 @@ import {
 	BsChevronDoubleRight,
 	BsChevronDoubleLeft,
 } from "react-icons/bs";
-import { TbBrandFramerMotion, TbApi } from "react-icons/tb";
+import { TbBrandFramerMotion, TbApi, Tb3DCubeSphere } from "react-icons/tb";
 
 const Navbar = () => {
 	const [toggleFoldOut, setToggleFoldOut] = useState(false);
@@ -38,7 +38,14 @@ const Navbar = () => {
 				<NavbarButton
 					icon={<TbApi />}
 					title="Handling API"
-					url="handlingapi"
+					url="/handlingapi"
+					toggleFoldOut={toggleFoldOut}
+				/>
+
+				<NavbarButton
+					icon={<Tb3DCubeSphere />}
+					title="Handling API"
+					url="/context"
 					toggleFoldOut={toggleFoldOut}
 				/>
 			</div>
@@ -52,15 +59,23 @@ const Navbar = () => {
 						transition={{ type: "tween" }}
 						className="fixed top-0 z-10 flex flex-col h-full gap-8 py-12 overflow-hidden text-gray-300 bg-gray-800 w-28 left-24 font-extralight"
 					>
-						<button className="flex w-full py-2 text-base">Sandbox</button>
+						<NavLink to="/" className="flex w-full py-2 text-base">
+							Sandbox
+						</NavLink>
 
 						<div className="border-b border-gray-700"></div>
 
-						<button className="flex w-full py-2 text-base ">Animation</button>
+						<NavLink to="/animation" className="flex w-full py-2 text-base ">
+							Animation
+						</NavLink>
 
-						<button className="flex w-full py-2 text-base ">
+						<NavLink to="/handlingapi" className="flex w-full py-2 text-base ">
 							Handling API
-						</button>
+						</NavLink>
+
+						<NavLink to="/context" className="flex w-full py-2 text-base ">
+							Context
+						</NavLink>
 					</motion.div>
 				)}
 			</AnimatePresence>

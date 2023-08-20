@@ -77,9 +77,10 @@ const ApiSB = () => {
 				if (!res.ok) {
 					setShowNotif(true);
 					setError(`${res.status} : ${res.statusText}`);
+				} else {
+					setCharData((prev) => [...prev, newCharForm]);
+					setNewCharForm(initial_char_form);
 				}
-				setCharData((prev) => [...prev, newCharForm]);
-				setNewCharForm(initial_char_form);
 			})
 			.finally(() => {
 				setIsAddingLoading(false);
@@ -89,7 +90,13 @@ const ApiSB = () => {
 	const charCardElement =
 		isCharDataExist &&
 		charData.map((char) => (
-			<CharCard key={char.id} char={char} setCharData={setCharData} />
+			<CharCard
+				key={char.id}
+				char={char}
+				setCharData={setCharData}
+				setError={setError}
+				setShowNotif={setShowNotif}
+			/>
 		));
 
 	return (

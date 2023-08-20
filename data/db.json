@@ -1,14 +1,6 @@
 {
   "characters": [
     {
-      "id": "6f37cd04-4dcd-4c1e-a83b-502812c6197a",
-      "name": "Brawl",
-      "faction": "Decepticon",
-      "altMode": "Tank",
-      "isDeleting": false,
-      "isEditing": false
-    },
-    {
       "id": "e525bc03-3e8e-4581-b25d-7e3ec85c9b77",
       "name": "Onslaught",
       "faction": "Decepticon",
