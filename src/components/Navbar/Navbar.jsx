@@ -44,7 +44,7 @@ const Navbar = () => {
 
 				<NavbarButton
 					icon={<Tb3DCubeSphere />}
-					title="Handling API"
+					title="Context"
 					url="/context"
 					toggleFoldOut={toggleFoldOut}
 				/>

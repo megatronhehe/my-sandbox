@@ -17,8 +17,10 @@ const AnimationSB = () => {
 
 	// CAROUSEL
 	const animateDirection = {
-		enter: (direction) => ({ x: direction === "next" ? 200 : -200 }),
-		center: { x: 0 },
+		enter: (direction) => ({
+			x: direction === "next" ? 200 : -200,
+		}),
+		center: { x: 0, scale: 1 },
 		exit: (direction) => ({ x: direction === "next" ? -200 : 200 }),
 	};
 
@@ -106,7 +108,7 @@ const AnimationSB = () => {
 				</div>
 
 				<div className="relative flex items-center justify-center w-56 h-56 overflow-hidden bg-gray-100 rounded-xl">
-					<AnimatePresence custom={direction}>
+					<AnimatePresence initial={false} custom={direction}>
 						<motion.div
 							key={count}
 							variants={animateDirection}
