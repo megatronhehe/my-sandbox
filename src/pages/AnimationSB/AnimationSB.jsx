@@ -1,12 +1,21 @@
 import React, { useState } from "react";
+import { v4 as uuid } from "uuid";
+
 import { motion, AnimatePresence } from "framer-motion";
-import { BiSolidChevronLeft, BiSolidChevronRight } from "react-icons/bi";
+import {
+	BiSolidChevronLeft,
+	BiSolidChevronRight,
+	BiPlus,
+	BiX,
+} from "react-icons/bi";
 
 const AnimationSB = () => {
 	const [count, setCount] = useState(0);
 	const [direction, setDirection] = useState("");
 	const [isAnimating, setIsAnimating] = useState(false);
+	const [list, setList] = useState([]);
 
+	// CAROUSEL
 	const animateDirection = {
 		enter: (direction) => ({ x: direction === "next" ? 200 : -200 }),
 		center: { x: 0 },
@@ -37,12 +46,46 @@ const AnimationSB = () => {
 		}
 	};
 
+	// LIST
+
+	const listElement =
+		list.length > 0 &&
+		list.map((item) => (
+			<motion.li
+				key={item.id}
+				initial={{ opacity: 0, height: 0 }}
+				animate={{ opacity: 1, height: "auto" }}
+				exit={{ opacity: 0, height: 0 }}
+			>
+				<div className="flex items-center justify-between p-2 my-2 border rounded-lg">
+					<h3>{item.item}</h3>
+					<button
+						onClick={() => deleteItem(item.id)}
+						className="p-1 text-white bg-red-300 rounded-md"
+					>
+						<BiX />
+					</button>
+				</div>
+			</motion.li>
+		));
+
+	const addItem = () => {
+		setList((prev) => [
+			...prev,
+			{ id: uuid(), item: `item ${list.length + 1}` },
+		]);
+	};
+
+	const deleteItem = (id) => {
+		setList((prev) => prev.filter((item) => item.id !== id));
+	};
+
 	return (
 		<main className="flex flex-col gap-8">
 			<h1 className="text-2xl">Animation</h1>
 
-			<section className="flex flex-col gap-4 ">
-				<h2>carousel</h2>
+			<section className="flex flex-col gap-4 pb-8 border-b">
+				<h2>Carousel</h2>
 
 				<div className="flex justify-between w-56 text-gray-400">
 					<button
@@ -78,6 +121,21 @@ const AnimationSB = () => {
 						</motion.div>
 					</AnimatePresence>
 				</div>
+			</section>
+
+			<section className="flex flex-col gap-4 ">
+				<div className="flex items-center justify-between w-1/2">
+					<h2>List</h2>
+					<button
+						onClick={addItem}
+						className="flex items-center justify-center w-6 h-6 text-white bg-blue-300 rounded-full"
+					>
+						<BiPlus />
+					</button>
+				</div>
+				<ul className="flex flex-col w-1/2 h-full px-4 py-2 overflow-hidden border ">
+					<AnimatePresence initial={false}>{listElement}</AnimatePresence>
+				</ul>
 			</section>
 		</main>
 	);
