@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import SubClassComp from "./SubClassComp";
+
 class ClassComp extends Component {
 	constructor(props) {
 		super(props);
@@ -17,14 +19,17 @@ class ClassComp extends Component {
 	};
 
 	render() {
+		const test = "this string is successfully being passed";
+
 		return (
 			<main className="flex flex-col gap-8">
-				<h1 className="text-2xl">Class Component</h1>
+				<h1 className="text-2xl">Class Component </h1>
 				<div className="flex items-center justify-between w-1/2 text-2xl">
 					<button onClick={this.subCount}>-</button>
 					<p>{this.state.count}</p>
 					<button onClick={this.addCount}>+</button>
 				</div>
+				<SubClassComp test={test} />
 			</main>
 		);
 	}

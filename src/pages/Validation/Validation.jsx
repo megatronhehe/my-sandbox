@@ -25,8 +25,6 @@ const Validation = () => {
 		errorMessage.password.length === 0 &&
 		errorMessage.confirmPassword.length === 0;
 
-	console.log(isFormValid);
-
 	const validateUsername = (value) => {
 		if (/^[a-zA-Z0-9]{6,}$/.test(value)) {
 			return "";

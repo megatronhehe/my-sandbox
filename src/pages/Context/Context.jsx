@@ -3,8 +3,6 @@ import React, { useContext } from "react";
 import TestContext from "../../context/TestContext";
 
 const Context = () => {
-	console.log(useContext(TestContext));
-
 	const { value } = useContext(TestContext);
 
 	return (
