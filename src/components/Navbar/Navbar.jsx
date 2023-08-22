@@ -13,6 +13,7 @@ import {
 	BsFillClipboardCheckFill,
 } from "react-icons/bs";
 import { TbBrandFramerMotion, TbApi, Tb3DCubeSphere } from "react-icons/tb";
+import { RxComponentInstance } from "react-icons/rx";
 
 const Navbar = () => {
 	const [toggleFoldOut, setToggleFoldOut] = useState(false);
@@ -56,6 +57,13 @@ const Navbar = () => {
 					url="/validation"
 					toggleFoldOut={toggleFoldOut}
 				/>
+
+				<NavbarButton
+					icon={<RxComponentInstance />}
+					title="Class Comp."
+					url="/classcomp"
+					toggleFoldOut={toggleFoldOut}
+				/>
 			</div>
 
 			<AnimatePresence>
@@ -87,6 +95,10 @@ const Navbar = () => {
 
 						<NavLink to="/validation" className="flex w-full py-2 text-base ">
 							Validation
+						</NavLink>
+
+						<NavLink to="/classcomp" className="flex w-full py-2 text-base ">
+							Class Comp.
 						</NavLink>
 					</motion.div>
 				)}

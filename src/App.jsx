@@ -8,6 +8,7 @@ import AnimationSB from "./pages/AnimationSB/AnimationSB";
 import ApiSB from "./pages/ApiSB/ApiSB";
 import Context from "./pages/Context/Context";
 import Validation from "./pages/Validation/Validation";
+import ClassComp from "./pages/ClassComp/ClassComp";
 
 import TestContextProvider from "./context/TestContextProvider";
 
@@ -31,6 +32,7 @@ function App() {
 						}
 					/>
 					<Route path="/validation" element={<Validation />} />
+					<Route path="/classcomp" element={<ClassComp />} />
 				</Routes>
 			</MainContainer>
 		</>
