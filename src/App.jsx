@@ -7,10 +7,11 @@ import Home from "./pages/Home/Home";
 import AnimationSB from "./pages/AnimationSB/AnimationSB";
 import ApiSB from "./pages/ApiSB/ApiSB";
 import Context from "./pages/Context/Context";
+import Validation from "./pages/Validation/Validation";
+
+import TestContextProvider from "./context/TestContextProvider";
 
 import { Route, Routes } from "react-router-dom";
-
-import TestContextProvider from "./context/TestContext";
 
 function App() {
 	return (
@@ -29,6 +30,7 @@ function App() {
 							</TestContextProvider>
 						}
 					/>
+					<Route path="/validation" element={<Validation />} />
 				</Routes>
 			</MainContainer>
 		</>

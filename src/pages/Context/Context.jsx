@@ -1,14 +1,17 @@
 import React, { useContext } from "react";
 
-import { TestContext } from "../../context/TestContext";
+import TestContext from "../../context/TestContext";
 
 const Context = () => {
 	console.log(useContext(TestContext));
 
+	const { value } = useContext(TestContext);
+
 	return (
-		<div>
+		<main className="flex flex-col gap-8">
 			<h1 className="text-2xl">Context</h1>
-		</div>
+			<p>{value}</p>
+		</main>
 	);
 };
 

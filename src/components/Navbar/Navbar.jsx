@@ -10,6 +10,7 @@ import {
 	BsBox,
 	BsChevronDoubleRight,
 	BsChevronDoubleLeft,
+	BsFillClipboardCheckFill,
 } from "react-icons/bs";
 import { TbBrandFramerMotion, TbApi, Tb3DCubeSphere } from "react-icons/tb";
 
@@ -48,6 +49,13 @@ const Navbar = () => {
 					url="/context"
 					toggleFoldOut={toggleFoldOut}
 				/>
+
+				<NavbarButton
+					icon={<BsFillClipboardCheckFill />}
+					title="Validation"
+					url="/validation"
+					toggleFoldOut={toggleFoldOut}
+				/>
 			</div>
 
 			<AnimatePresence>
@@ -75,6 +83,10 @@ const Navbar = () => {
 
 						<NavLink to="/context" className="flex w-full py-2 text-base ">
 							Context
+						</NavLink>
+
+						<NavLink to="/validation" className="flex w-full py-2 text-base ">
+							Validation
 						</NavLink>
 					</motion.div>
 				)}
