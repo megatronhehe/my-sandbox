@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { HiMagnifyingGlass } from "react-icons/hi2";
+import { HiMagnifyingGlass, HiPhoto } from "react-icons/hi2";
 
 const Filter = () => {
 	const productsData = [
@@ -68,12 +68,22 @@ const Filter = () => {
 	console.log(filterType);
 
 	const productElement = filteredProductsArray.map((product) => (
-		<li key={product.id} className="p-4 text-center bg-gray-100 rounded-lg ">
+		<li
+			key={product.id}
+			className="relative p-2 text-center bg-gray-100 rounded-lg "
+		>
+			<div className="flex items-center justify-center w-full h-48 mb-2 text-5xl text-gray-200 bg-white rounded-xl">
+				<HiPhoto />
+			</div>
 			<h2 className="pb-2 mb-2 border-b">{product.name}</h2>
-			<h3 className="mb-2 text-sm">{product.type}</h3>
-			<div className="flex justify-around">
-				<p className={`bg-${product.color} rounded-full shadow-lg w-6 h-6`}></p>
-				<p>${product.price}</p>
+			<div className="flex flex-col items-center mb-4">
+				<h3 className="mb-2 text-sm">{product.type}</h3>
+				<h4
+					className={`bg-${product.color} rounded-full shadow-lg w-6 h-6`}
+				></h4>
+			</div>
+			<div className="absolute px-2 py-1 text-white bg-gray-400 top-1 right-1 rounded-xl">
+				${product.price - 0.01}
 			</div>
 		</li>
 	));
@@ -149,7 +159,7 @@ const Filter = () => {
 			</section>
 
 			<section>
-				<ul className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+				<ul className="grid w-2/3 grid-cols-1 gap-4 sm:w-full sm:grid-cols-2 md:grid-cols-3">
 					{productElement}
 				</ul>
 			</section>
