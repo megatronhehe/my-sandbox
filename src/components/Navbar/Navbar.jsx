@@ -11,6 +11,7 @@ import {
 	BsChevronDoubleRight,
 	BsChevronDoubleLeft,
 	BsFillClipboardCheckFill,
+	BsFilter,
 } from "react-icons/bs";
 import { TbBrandFramerMotion, TbApi, Tb3DCubeSphere } from "react-icons/tb";
 import { RxComponentInstance } from "react-icons/rx";
@@ -64,6 +65,13 @@ const Navbar = () => {
 					url="/classcomp"
 					toggleFoldOut={toggleFoldOut}
 				/>
+
+				<NavbarButton
+					icon={<BsFilter />}
+					title="Filter"
+					url="/filter"
+					toggleFoldOut={toggleFoldOut}
+				/>
 			</div>
 
 			<AnimatePresence>
@@ -99,6 +107,10 @@ const Navbar = () => {
 
 						<NavLink to="/classcomp" className="flex w-full py-2 text-base ">
 							Class Comp.
+						</NavLink>
+
+						<NavLink to="/filter" className="flex w-full py-2 text-base ">
+							Filter
 						</NavLink>
 					</motion.div>
 				)}

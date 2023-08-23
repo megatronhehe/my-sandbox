@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 const Validation = () => {
+	// STATES
 	const [form, setForm] = useState({
 		username: "",
 		email: "",
@@ -15,6 +16,9 @@ const Validation = () => {
 		confirmPassword: "",
 	});
 
+	const [toggleShowPassword, setToggleShowPassword] = useState(false);
+
+	// VARIABLES
 	const isFormValid =
 		form.username.length > 0 &&
 		form.email.length > 0 &&
@@ -25,6 +29,7 @@ const Validation = () => {
 		errorMessage.password.length === 0 &&
 		errorMessage.confirmPassword.length === 0;
 
+	// VALIDATION
 	const validateUsername = (value) => {
 		if (/^[a-zA-Z0-9]{6,}$/.test(value)) {
 			return "";
@@ -53,6 +58,7 @@ const Validation = () => {
 		return "Password don't match.";
 	};
 
+	// FUNCTIONS
 	const handleForm = (e) => {
 		const { name, value } = e.target;
 		setForm((prev) => ({ ...prev, [name]: value }));
@@ -128,9 +134,10 @@ const Validation = () => {
 					value={form.confirmPassword}
 					onChange={handleForm}
 					placeholder="confirm password"
-					className="p-4 bg-gray-100 border outline-none rounded-xl focus:bg-white focus:border-blue-300"
+					className="p-4 bg-gray-100 border outline-none  rounded-xl focus:bg-white focus:border-blue-300"
 					required
 				/>
+
 				<span className="h-10 text-sm text-red-500 ">
 					{form.confirmPassword === "" ? "" : errorMessage.confirmPassword}
 				</span>
