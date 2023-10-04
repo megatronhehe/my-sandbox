@@ -10,10 +10,12 @@ import Context from "./pages/Context/Context";
 import Validation from "./pages/Validation/Validation";
 import ClassComp from "./pages/ClassComp/ClassComp";
 import Filter from "./pages/Filter/Filter";
+import Layouting from "./pages/Layouting/Layouting";
 
 import TestContextProvider from "./context/TestContextProvider";
 
 import { Route, Routes } from "react-router-dom";
+import MyURLSearchParams from "./pages/URLSearchParams/URLSearchParams";
 
 function App() {
 	return (
@@ -35,6 +37,8 @@ function App() {
 					<Route path="/validation" element={<Validation />} />
 					<Route path="/classcomp" element={<ClassComp />} />
 					<Route path="/filter" element={<Filter />} />
+					<Route path="/layouting" element={<Layouting />} />
+					<Route path="/urlsearchparams" element={<MyURLSearchParams />} />
 				</Routes>
 			</MainContainer>
 		</>

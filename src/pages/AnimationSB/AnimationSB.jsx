@@ -139,6 +139,20 @@ const AnimationSB = () => {
 					<AnimatePresence initial={false}>{listElement}</AnimatePresence>
 				</ul>
 			</section>
+
+			<section className="flex flex-col gap-4 ">
+				<div className="flex items-center justify-between w-1/2 ">
+					<h2>Scroll Carousel</h2>
+				</div>
+				<div className="flex items-center w-full h-64 gap-4 px-4 overflow-auto border snap-x snap-mandatory">
+					<div className="flex-shrink-0 h-56 border w-80 snap-center"></div>
+					<div className="flex-shrink-0 h-56 border w-80 snap-center"></div>
+					<div className="flex-shrink-0 h-56 border w-80 snap-center"></div>
+					<div className="flex-shrink-0 h-56 border w-80 snap-center"></div>
+					<div className="flex-shrink-0 h-56 border w-80 snap-center"></div>
+					<div className="flex-shrink-0 h-56 border w-80 snap-center"></div>
+				</div>
+			</section>
 		</main>
 	);
 };

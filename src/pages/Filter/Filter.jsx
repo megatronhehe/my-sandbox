@@ -65,8 +65,6 @@ const Filter = () => {
 			(filterType === "" || product.type === filterType)
 	);
 
-	console.log(filterType);
-
 	const productElement = filteredProductsArray.map((product) => (
 		<li
 			key={product.id}

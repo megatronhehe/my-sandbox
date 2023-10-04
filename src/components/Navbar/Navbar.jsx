@@ -72,6 +72,20 @@ const Navbar = () => {
 					url="/filter"
 					toggleFoldOut={toggleFoldOut}
 				/>
+
+				<NavbarButton
+					icon={<BsFilter />}
+					title="Layouting"
+					url="/layouting"
+					toggleFoldOut={toggleFoldOut}
+				/>
+
+				<NavbarButton
+					icon={<BsFilter />}
+					title="urlsearchparams"
+					url="/urlsearchparams"
+					toggleFoldOut={toggleFoldOut}
+				/>
 			</div>
 
 			<AnimatePresence>
