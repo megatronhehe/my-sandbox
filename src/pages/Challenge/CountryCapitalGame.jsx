@@ -9,12 +9,18 @@ const CountryCapitalGame = ({ options, data }) => {
 	useEffect(() => {
 		if (selected.length === 2) {
 			if (check()) {
-				setSelected([]);
-				setOptionsState((prev) =>
-					prev.filter(
-						(option) => option !== selected[0] && option !== selected[1]
-					)
-				);
+				setTimeout(() => {
+					setSelected([]);
+					setOptionsState((prev) =>
+						prev.filter(
+							(option) => option !== selected[0] && option !== selected[1]
+						)
+					);
+				}, 1000);
+			} else {
+				setTimeout(() => {
+					setSelected([]);
+				}, 1000);
 			}
 		}
 	}, [selected]);
@@ -36,7 +42,7 @@ const CountryCapitalGame = ({ options, data }) => {
 
 	const select = (option) => {
 		setSelected((prev) => {
-			if (prev.some((item) => item === option)) {
+			if (prev.includes(option)) {
 				return prev.filter((item) => item !== option);
 			}
 			return [...prev, option];
@@ -44,17 +50,19 @@ const CountryCapitalGame = ({ options, data }) => {
 	};
 
 	const optionsElements = optionsState.map((option) => {
-		const active = selected.some((item) => item === option);
+		const active = selected.includes(option);
 		const wrong = active && selected.length === 2 && check() === false;
+		const right = active && selected.length === 2 && check() === true;
 
 		return (
 			<button
 				key={option}
-				disabled={selected.length >= 2 && !active}
+				disabled={(selected.length >= 2 && !active) || right || wrong}
 				onClick={() => select(option)}
 				className={`px-3 py-1 rounded-xl border duration-200 flex-grow
             ${active && "bg-blue-400 text-white border-blue-400"}
-            ${wrong && "bg-red-400 text-white border-red-400"}
+            ${wrong && "bg-red-400 text-white border-red-400 "}
+            ${right && "bg-green-400 text-white border-green-400"}
             `}
 			>
 				{option}

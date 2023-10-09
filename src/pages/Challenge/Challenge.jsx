@@ -9,6 +9,11 @@ const Challenge = () => {
 		Azerbaijan: "Baku",
 		Indonesia: "Jakarta",
 		Malaysia: "Kuala Lumpur",
+		Japan: "Tokyo",
+		America: "Washington",
+		China: "Beijing",
+		Russia: "Moscow",
+		Poland: "Warsaw",
 	};
 
 	const countries = Object.keys(data);
