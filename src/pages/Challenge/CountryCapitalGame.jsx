@@ -52,7 +52,7 @@ const CountryCapitalGame = ({ options, data }) => {
 				key={option}
 				disabled={selected.length >= 2 && !active}
 				onClick={() => select(option)}
-				className={`px-3 py-1 rounded-xl border 
+				className={`px-3 py-1 rounded-xl border duration-200 flex-grow
             ${active && "bg-blue-400 text-white border-blue-400"}
             ${wrong && "bg-red-400 text-white border-red-400"}
             `}
@@ -63,7 +63,7 @@ const CountryCapitalGame = ({ options, data }) => {
 	});
 
 	return (
-		<div className="flex flex-wrap gap-2">
+		<div className="flex flex-row flex-wrap gap-2 text-sm">
 			{optionsState.length > 0 ? (
 				optionsElements
 			) : (
@@ -72,9 +72,9 @@ const CountryCapitalGame = ({ options, data }) => {
 					<p className="text-sm">you have finished the challenge!</p>
 					<button
 						onClick={reset}
-						className="px-3 py-1 text-white bg-green-400 rounded-xl"
+						className="px-4 py-1 text-sm text-white duration-200 bg-green-400 rounded-xl hover:scale-110 "
 					>
-						reset
+						play again
 					</button>
 				</div>
 			)}

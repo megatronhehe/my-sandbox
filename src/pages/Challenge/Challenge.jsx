@@ -15,7 +15,14 @@ const Challenge = () => {
 	const capitals = Object.values(data);
 	const options = shuffle([...countries, ...capitals]);
 
-	return <CountryCapitalGame options={options} data={data} />;
+	return (
+		<>
+			<h1 className="w-full pb-6 mb-6 text-xl text-center border-b">
+				React Interview Challenge
+			</h1>
+			<CountryCapitalGame options={options} data={data} />
+		</>
+	);
 };
 
 export default Challenge;
