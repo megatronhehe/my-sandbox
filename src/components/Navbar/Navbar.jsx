@@ -75,8 +75,8 @@ const Navbar = () => {
 
 				<NavbarButton
 					icon={<BsFilter />}
-					title="Layouting"
-					url="/layouting"
+					title="Challenge"
+					url="/challenge"
 					toggleFoldOut={toggleFoldOut}
 				/>
 

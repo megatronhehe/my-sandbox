@@ -10,7 +10,7 @@ import Context from "./pages/Context/Context";
 import Validation from "./pages/Validation/Validation";
 import ClassComp from "./pages/ClassComp/ClassComp";
 import Filter from "./pages/Filter/Filter";
-import Layouting from "./pages/Layouting/Layouting";
+import Challenge from "./pages/Challenge/Challenge";
 
 import TestContextProvider from "./context/TestContextProvider";
 
@@ -37,7 +37,7 @@ function App() {
 					<Route path="/validation" element={<Validation />} />
 					<Route path="/classcomp" element={<ClassComp />} />
 					<Route path="/filter" element={<Filter />} />
-					<Route path="/layouting" element={<Layouting />} />
+					<Route path="/challenge" element={<Challenge />} />
 					<Route path="/urlsearchparams" element={<MyURLSearchParams />} />
 				</Routes>
 			</MainContainer>
