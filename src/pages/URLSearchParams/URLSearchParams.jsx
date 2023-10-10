@@ -98,19 +98,71 @@ const MyURLSearchParams = () => {
 
 	return (
 		<div className="flex flex-col gap-4">
-			<section className="flex gap-4">
-				<Link to={genNewSearchParamString("type", null)}>all</Link>
-				<Link to={genNewSearchParamString("type", "shirt")}>shirt</Link>
-				<Link to={genNewSearchParamString("type", "hoodie")}>hoodie</Link>
-				<Link to={genNewSearchParamString("type", "sleeveless")}>
+			<section className="flex">
+				<Link
+					to={genNewSearchParamString("type", null)}
+					className={`px-3 py-1 rounded-xl duration-200 ${
+						!filter.type ? "bg-gray-700 text-white" : "bg-white"
+					}`}
+				>
+					all
+				</Link>
+
+				<Link
+					to={genNewSearchParamString("type", "shirt")}
+					className={`px-3 py-1 rounded-xl duration-200 ${
+						filter.type === "shirt" ? "bg-gray-700 text-white" : "bg-white"
+					}`}
+				>
+					shirt
+				</Link>
+
+				<Link
+					to={genNewSearchParamString("type", "hoodie")}
+					className={`px-3 py-1 rounded-xl duration-200 ${
+						filter.type === "hoodie" ? "bg-gray-700 text-white" : "bg-white"
+					}`}
+				>
+					hoodie
+				</Link>
+
+				<Link
+					to={genNewSearchParamString("type", "sleeveless")}
+					className={`px-3 py-1 rounded-xl duration-200 ${
+						filter.type === "sleeveless" ? "bg-gray-700 text-white" : "bg-white"
+					}`}
+				>
 					sleeveless
 				</Link>
 			</section>
 
-			<section className="flex gap-4">
-				<Link to={genNewSearchParamString("color", null)}>all</Link>
-				<Link to={genNewSearchParamString("color", "black")}>black</Link>
-				<Link to={genNewSearchParamString("color", "white")}>white</Link>
+			<section className="flex">
+				<Link
+					to={genNewSearchParamString("color", null)}
+					className={`px-3 py-1 rounded-xl duration-200 ${
+						!filter.color ? "bg-gray-700 text-white" : "bg-white"
+					}`}
+				>
+					all
+				</Link>
+
+				<Link
+					to={genNewSearchParamString("color", "black")}
+					className={`px-3 py-1 rounded-xl duration-200 ${
+						filter.color === "black" ? "bg-gray-700 text-white" : "bg-white"
+					}`}
+				>
+					black
+				</Link>
+
+				<Link
+					to={genNewSearchParamString("color", "white")}
+					className={`px-3 py-1 rounded-xl duration-200 ${
+						filter.color === "white" ? "bg-gray-700 text-white" : "bg-white"
+					}`}
+				>
+					white
+				</Link>
 			</section>
 
 			<ul className="grid w-2/3 grid-cols-1 gap-4 sm:w-full sm:grid-cols-2 md:grid-cols-3">
