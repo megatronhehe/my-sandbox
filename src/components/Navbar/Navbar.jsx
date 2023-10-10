@@ -15,6 +15,7 @@ import {
 } from "react-icons/bs";
 import { TbBrandFramerMotion, TbApi, Tb3DCubeSphere } from "react-icons/tb";
 import { RxComponentInstance } from "react-icons/rx";
+import { PiGearSixLight, PiLinkLight } from "react-icons/pi";
 
 const Navbar = () => {
 	const [toggleFoldOut, setToggleFoldOut] = useState(false);
@@ -74,14 +75,14 @@ const Navbar = () => {
 				/>
 
 				<NavbarButton
-					icon={<BsFilter />}
+					icon={<PiGearSixLight />}
 					title="Challenge"
 					url="/challenge"
 					toggleFoldOut={toggleFoldOut}
 				/>
 
 				<NavbarButton
-					icon={<BsFilter />}
+					icon={<PiLinkLight />}
 					title="urlsearchparams"
 					url="/urlsearchparams"
 					toggleFoldOut={toggleFoldOut}
@@ -95,7 +96,7 @@ const Navbar = () => {
 						animate={{ x: 0 }}
 						exit={{ x: -120 }}
 						transition={{ type: "tween" }}
-						className="fixed top-0 z-10 flex flex-col h-full gap-8 py-12 overflow-hidden text-gray-300 bg-gray-800 w-28 left-24 font-extralight"
+						className="fixed top-0 z-10 flex flex-col w-32 h-full gap-8 py-12 overflow-hidden text-gray-300 bg-gray-800 left-24 font-extralight"
 					>
 						<NavLink to="/" className="flex w-full py-2 text-base">
 							Sandbox
@@ -125,6 +126,14 @@ const Navbar = () => {
 
 						<NavLink to="/filter" className="flex w-full py-2 text-base ">
 							Filter
+						</NavLink>
+
+						<NavLink to="/challenge" className="flex w-full py-2 text-base ">
+							Challenge
+						</NavLink>
+
+						<NavLink to="/challenge" className="flex w-full py-2 text-base ">
+							Urlsearchparams
 						</NavLink>
 					</motion.div>
 				)}
