@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 
 import { shuffle } from "./shuffle";
 
-const CountryCapitalGame = ({ options, data }) => {
+const CountryCapitalGame = ({ data }) => {
+	const countries = Object.keys(data);
+	const capitals = Object.values(data);
+	const options = shuffle([...countries, ...capitals]);
+
 	const [selected, setSelected] = useState([]);
 	const [optionsState, setOptionsState] = useState(options);
 

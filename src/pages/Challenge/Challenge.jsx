@@ -16,16 +16,12 @@ const Challenge = () => {
 		Poland: "Warsaw",
 	};
 
-	const countries = Object.keys(data);
-	const capitals = Object.values(data);
-	const options = shuffle([...countries, ...capitals]);
-
 	return (
 		<>
 			<h1 className="w-full pb-6 mb-6 text-xl text-center border-b">
 				React Interview Challenge
 			</h1>
-			<CountryCapitalGame options={options} data={data} />
+			<CountryCapitalGame data={data} />
 		</>
 	);
 };
