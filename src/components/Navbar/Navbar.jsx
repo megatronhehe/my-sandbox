@@ -87,6 +87,13 @@ const Navbar = () => {
 					url="/urlsearchparams"
 					toggleFoldOut={toggleFoldOut}
 				/>
+
+				<NavbarButton
+					icon={<PiGearSixLight />}
+					title="Challenge2"
+					url="/challenge2"
+					toggleFoldOut={toggleFoldOut}
+				/>
 			</div>
 
 			<AnimatePresence>
@@ -132,8 +139,15 @@ const Navbar = () => {
 							Challenge
 						</NavLink>
 
-						<NavLink to="/challenge" className="flex w-full py-2 text-base ">
+						<NavLink
+							to="/urlsearchparams"
+							className="flex w-full py-2 text-base "
+						>
 							Urlsearchparams
+						</NavLink>
+
+						<NavLink to="/challenge2" className="flex w-full py-2 text-base ">
+							Challenge 2
 						</NavLink>
 					</motion.div>
 				)}

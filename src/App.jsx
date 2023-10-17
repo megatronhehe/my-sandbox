@@ -16,6 +16,7 @@ import TestContextProvider from "./context/TestContextProvider";
 
 import { Route, Routes } from "react-router-dom";
 import MyURLSearchParams from "./pages/URLSearchParams/URLSearchParams";
+import Challenge2 from "./pages/Challenge2/Challenge2";
 
 function App() {
 	return (
@@ -39,6 +40,7 @@ function App() {
 					<Route path="/filter" element={<Filter />} />
 					<Route path="/challenge" element={<Challenge />} />
 					<Route path="/urlsearchparams" element={<MyURLSearchParams />} />
+					<Route path="/challenge2" element={<Challenge2 />} />
 				</Routes>
 			</MainContainer>
 		</>
