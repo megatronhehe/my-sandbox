@@ -22,7 +22,11 @@ const Navbar = () => {
 
 	return (
 		<nav>
-			<div className="fixed top-0 left-0 z-20 flex flex-col w-24 h-full gap-8 py-12 text-gray-300 bg-gray-800 font-extralight">
+			<div
+				className={`fixed top-0 left-0 z-20 flex flex-col h-full gap-8 py-12 text-gray-300 bg-gray-800 font-extralight duration-200 ${
+					toggleFoldOut ? "w-64 " : "w-24"
+				}`}
+			>
 				<NavbarButton
 					icon={<BsBox />}
 					title="Sandbox"
@@ -95,63 +99,6 @@ const Navbar = () => {
 					toggleFoldOut={toggleFoldOut}
 				/>
 			</div>
-
-			<AnimatePresence>
-				{toggleFoldOut && (
-					<motion.div
-						initial={{ x: -120 }}
-						animate={{ x: 0 }}
-						exit={{ x: -120 }}
-						transition={{ type: "tween" }}
-						className="fixed top-0 z-10 flex flex-col w-32 h-full gap-8 py-12 overflow-hidden text-gray-300 bg-gray-800 left-24 font-extralight"
-					>
-						<NavLink to="/" className="flex w-full py-2 text-base">
-							Sandbox
-						</NavLink>
-
-						<div className="border-b border-gray-700"></div>
-
-						<NavLink to="/animation" className="flex w-full py-2 text-base ">
-							Animation
-						</NavLink>
-
-						<NavLink to="/handlingapi" className="flex w-full py-2 text-base ">
-							Handling API
-						</NavLink>
-
-						<NavLink to="/context" className="flex w-full py-2 text-base ">
-							Context
-						</NavLink>
-
-						<NavLink to="/validation" className="flex w-full py-2 text-base ">
-							Validation
-						</NavLink>
-
-						<NavLink to="/classcomp" className="flex w-full py-2 text-base ">
-							Class Comp.
-						</NavLink>
-
-						<NavLink to="/filter" className="flex w-full py-2 text-base ">
-							Filter
-						</NavLink>
-
-						<NavLink to="/challenge" className="flex w-full py-2 text-base ">
-							Challenge
-						</NavLink>
-
-						<NavLink
-							to="/urlsearchparams"
-							className="flex w-full py-2 text-base "
-						>
-							Urlsearchparams
-						</NavLink>
-
-						<NavLink to="/challenge2" className="flex w-full py-2 text-base ">
-							Challenge 2
-						</NavLink>
-					</motion.div>
-				)}
-			</AnimatePresence>
 
 			<button
 				onClick={() => setToggleFoldOut((prev) => !prev)}

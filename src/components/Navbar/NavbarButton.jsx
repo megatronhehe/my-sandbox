@@ -23,11 +23,19 @@ const NavbarButton = ({ icon, title, url, toggleFoldOut }) => {
 				<button
 					onMouseEnter={() => setShowTitle(true)}
 					onMouseLeave={() => setShowTitle(false)}
-					className={`relative flex justify-center w-full py-2 text-2xl ${
+					className={`items-center gap-6 relative flex pl-8 w-full py-2 text-2xl ${
 						isActive ? "border-l-4" : ""
 					}`}
 				>
-					{icon}
+					<span className="scale-100">{icon}</span>
+
+					<span
+						className={`text-base ml-16 absolute duration-200 ${
+							toggleFoldOut ? "scale-100" : "scale-0"
+						}`}
+					>
+						{title}
+					</span>
 					<AnimatePresence>
 						{!toggleFoldOut && showTitle && (
 							<motion.h1
